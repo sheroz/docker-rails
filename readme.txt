@@ -1,3 +1,4 @@
+Quick reference:
 
 docker-compose build
 # open a bash console 
@@ -12,11 +13,11 @@ docker rm $(docker ps -a -q)
 # Delete all images
 docker rmi -f $(docker images -q)
 
-# start containers 
-docker-compose up -d stop
-# stop containers 
+# Run services
+docker-compose up -d
+# Stop services
 docker-compose stop
-# remove containers 
+# Stop services and remove containers, networks, images, and volumes 
 docker-compose down
 
 # list docker volumes
