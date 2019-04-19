@@ -1,3 +1,5 @@
+Docker Engine: 18.09.2
+
 Quick reference:
 
 docker-compose build
@@ -26,8 +28,7 @@ docker volume ls
 docker volume prune
 
 
-
-
+ 
 references:
 https://revs.runtime-revolution.com/setting-up-a-simple-rails-development-environment-with-docker-for-fun-and-profit-71b8aa0d33c1
 https://tomazy.com/blog/2017/05/rails-development-with-docker/
