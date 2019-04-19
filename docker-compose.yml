@@ -3,46 +3,51 @@
 
 version: "3.7"
 services:
-    ruby:
-        build: ./ruby/
-        image: rails:ruby
 
     app:
-        build: ./rails/
-        image: rails:app
+        build: ./app/
+        image: app
         ports:
-        - 3000:3000
+            - 3000:3000
+        volumes:
+            - 'c:/projects/ruby/athena/:/app'
         environment:
             RACK_ENV: development        
-
+        links:
+            - postgres
+            - redis
+            - mongo
+        stdin_open: true
+        tty: true            
+        
     postgres:
         build: ./postgres/
         image: postgres
         ports:
-        - 5432:5432
+            - 5432:5432
         volumes:
-        - postgres:/var/lib/postgresql/data
+            - postgres:/var/lib/postgresql/data
         env_file:
-        - '.env'
+            - '.env'
        
     redis:
         image: redis:4.0-alpine
         command: [redis-server]
         ports:
-        - 6379:6379
+            - 6379:6379
         volumes:
-        - redis:/var/lib/redis/data
+            - redis:/var/lib/redis/data
         env_file:
-        - '.env'
+            - '.env'
 
     mongo:
         image: mongo:3.6
         ports:
-        - 27017:27107
+            - 27017:27107
         volumes:
-        - mongo:/data/db
+            - mongo:/data/db
         env_file:
-        - '.env'
+            - '.env'
 
 volumes:
   postgres:

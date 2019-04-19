@@ -3,15 +3,30 @@ Docker Engine: 18.09.2
 Quick reference:
 
 docker-compose build
-# open a bash console 
-docker run -it ruby bash
-# open an IRB - interactive Ruby
-docker run -it ruby irb
+
+# run <command> inside the 'app' service container
+docker-compose run --rm app <command>
+## samples
+## docker-compose run --rm app mc
+## docker-compose run --rm app irb
+
+
+# run container app and open a bash console 
+## samples
+## docker run -it app mc
+## docker run -it app bash
+## docker run -it app irb
+
+# show containers
+docker-compose ps
+# show services
+docker-compose ps --services
 
 # show all containers
 docker ps -a
 # Delete all containers
 docker rm $(docker ps -a -q)
+
 
 # show all images
 docker image ls -a
