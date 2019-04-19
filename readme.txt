@@ -12,6 +12,9 @@ docker run -it ruby irb
 docker ps -a
 # Delete all containers
 docker rm $(docker ps -a -q)
+
+# show all images
+docker image ls -a
 # Delete all images
 docker rmi -f $(docker images -q)
 
@@ -19,17 +22,22 @@ docker rmi -f $(docker images -q)
 docker-compose up -d
 # Stop services
 docker-compose stop
-# Stop services and remove containers, networks, images, and volumes 
+# Stop services and remove containers and networks
 docker-compose down
+# Stop services and remove ALL related containers, networks, images, and volumes 
+docker-compose down --rmi all -v --remove-orphans
 
 # list docker volumes
 docker volume ls
 # remove all unused volumes
-docker volume prune
+docker volume prune -f
 
+# clean up everything - remove all images, containers, and networks
+docker system prune --volumes -af
 
- 
 references:
+https://www.jetbrains.com/help/ruby/using-docker-as-a-remote-interpreter.html
+
 https://revs.runtime-revolution.com/setting-up-a-simple-rails-development-environment-with-docker-for-fun-and-profit-71b8aa0d33c1
 https://tomazy.com/blog/2017/05/rails-development-with-docker/
 https://github.com/cweagans/docker-bg-sync
@@ -38,3 +46,4 @@ https://nickjanetakis.com/blog/dockerize-a-rails-5-postgres-redis-sidekiq-action
 https://www.packet.com/blog/how-to-run-your-rails-app-on-docker/
 
 https://nftb.saturdaymp.com/today-i-learned-how-to-create-rails-docker-container-without-ruby-installed/
+
