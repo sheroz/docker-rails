@@ -9,7 +9,7 @@ docker-compose run --rm app <command>
 ## samples
 ## docker-compose run --rm app mc
 ## docker-compose run --rm app irb
-
+## docker-compose run --rm app bundle install
 
 # run container app and open a bash console 
 ## samples
@@ -26,7 +26,6 @@ docker-compose ps --services
 docker ps -a
 # Delete all containers
 docker rm $(docker ps -a -q)
-
 
 # show all images
 docker image ls -a
@@ -61,4 +60,5 @@ https://nickjanetakis.com/blog/dockerize-a-rails-5-postgres-redis-sidekiq-action
 https://www.packet.com/blog/how-to-run-your-rails-app-on-docker/
 
 https://nftb.saturdaymp.com/today-i-learned-how-to-create-rails-docker-container-without-ruby-installed/
-
+http://bradgessler.com/articles/docker-bundler/
+https://medium.com/magnetis-backstage/how-to-cache-bundle-install-with-docker-7bed453a5800

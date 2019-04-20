@@ -53,10 +53,10 @@ ENV LC_ALL en_US.UTF-8
 
 RUN mkdir -p /app 
 WORKDIR /app
-
+  
 EXPOSE 3000
 
-ENTRYPOINT ["/bin/bash", "-l", "-c"]
+#ENTRYPOINT ["/bin/bash", "-l", "-c"]
 
 #ENTRYPOINT ["bundle", "exec"]
 #CMD ["rails", "server", "-b", "0.0.0.0"]
