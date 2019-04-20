@@ -6,12 +6,17 @@ LABEL maintainer="Sheroz Khaydarov http://sheroz.com"
 
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
 apt-utils \
+autoconf \
 build-essential \
+bison \
+dpkg-dev \
+libgdbm-dev \
 ca-certificates \
 dirmngr \
 gnupg2 \
 openssl \
 ssh \
+libssl1.0-dev \
 libxml2-dev \
 libxslt-dev \
 libpq-dev \
@@ -41,6 +46,7 @@ RUN mkdir -p /tmp/build/ruby \
 && rm ruby.tar.xz \
 && cd /tmp/build/ruby \
 && gnuArch="$(dpkg-architecture --query DEB_BUILD_GNU_TYPE)" \
+&& autoconf \
 && ./configure --build="$gnuArch" --enable-shared --disable-install-doc --disable-install-rdoc \
 && make \
 && make install \
@@ -52,8 +58,7 @@ ENV BUNDLE_PATH=$BUNDLE_PATH \
 	BUNDLE_APP_CONFIG=$BUNDLE_PATH \
 	BUNDLE_SILENCE_ROOT_WARNING=1 
 ENV PATH $GEM_HOME/bin:$BUNDLE_PATH/gems/bin:$PATH
-RUN mkdir -p $BUNDLE_PATH && chmod 777 $BUNDLE_PATH
-
+RUN mkdir -p $BUNDLE_PATH && chmod 777 $BUNDLE_PATH && gem install bundler
 # RUN mkdir ~/.gnupg && echo "disable-ipv6" >> ~/.gnupg/dirmngr.conf \
 # && gpg2 --keyserver hkp://keys.gnupg.net --recv-keys D39DC0E3 \
 # && curl -sSL https://get.rvm.io | bash -s \
@@ -84,7 +89,6 @@ RUN mkdir -p $SOURCE_PATH
   
 EXPOSE 3000
 
-ENTRYPOINT ["/bin/bash", "-l", "-c"]
-
+#ENTRYPOINT ["/bin/bash", "-l", "-c"]
 #ENTRYPOINT ["bundle", "exec"]
 #CMD ["rails", "server", "-b", "0.0.0.0"]
