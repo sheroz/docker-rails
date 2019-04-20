@@ -3,7 +3,6 @@
 
 version: "2"
 services:
-
     app:
         build: ./app/
         image: app:dev
@@ -67,4 +66,4 @@ volumes:
     postgres:
     redis:
     mongo:
- 
+
