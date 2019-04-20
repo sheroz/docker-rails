@@ -1,4 +1,5 @@
 FROM postgres:10.0-alpine
+LABEL maintainer="Sheroz Khaydarov http://sheroz.com"
 
 USER postgres
 

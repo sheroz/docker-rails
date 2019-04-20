@@ -1,10 +1,10 @@
 # Dockerfile
-# app
+# Docker image app:dev
 
-FROM ubuntu:16.04
+FROM ubuntu:18.04
+LABEL maintainer="Sheroz Khaydarov http://sheroz.com"
 
-RUN apt-get update \
-&& apt-get install -y --no-install-recommends \
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
 apt-utils \
 build-essential \
 ca-certificates \
@@ -24,13 +24,35 @@ unzip \
 mc \
 git \
 nodejs \
-&& apt-get clean \
+&& apt-get clean 
 ## && rm -rf /var/lib/apt/lists/* \  
-&& locale-gen en_US.UTF-8 \
-&& gpg2 --keyserver hkp://keys.gnupg.net --recv-keys D39DC0E3 \
-&& curl -sSL https://get.rvm.io | bash -s \
-&& /bin/bash -l -c ". /etc/profile.d/rvm.sh" \
-&& /bin/bash -l -c "rvm install 2.5.3"
+
+# Set locale
+RUN locale-gen en_US.UTF-8
+
+# Install Ruby from source: ruby-x.y.z.tar.xz
+ENV RUBY_MAJOR 2.5
+ENV RUBY_VERSION 2.5.3
+ENV RUBY_DOWNLOAD_SHA256 1cc9d0359a8ea35fc6111ec830d12e60168f3b9b305a3c2578357d360fcf306f
+ENV RUBYGEMS_VERSION 3.0.3
+
+RUN mkdir -p /tmp/build/ruby \
+&& cd /tmp/build \
+&& wget -q --show-progress --progress=bar:force:noscroll -O ruby.tar.xz "http://ftp.ruby-lang.org/pub/ruby/$RUBY_MAJOR/ruby-$RUBY_VERSION.tar.xz" \
+&& echo "$RUBY_DOWNLOAD_SHA256 *ruby.tar.xz" | sha256sum -c - \
+&& tar -xJf ruby.tar.xz -C /tmp/build/ruby --strip-components=1 \
+&& rm ruby.tar.xz \
+&& cd /tmp/build/ruby \
+&& ./configure --enable-shared --disable-install-doc --disable-install-rdoc \
+&& make \
+&& make install \
+&& rm -rf /tmp/build
+
+# RUN mkdir ~/.gnupg && echo "disable-ipv6" >> ~/.gnupg/dirmngr.conf \
+# && gpg2 --keyserver hkp://keys.gnupg.net --recv-keys D39DC0E3 \
+# && curl -sSL https://get.rvm.io | bash -s \
+# && /bin/bash -l -c ". /etc/profile.d/rvm.sh" \
+# && /bin/bash -l -c "rvm install 2.5.3"
 
 # Install PostgreSQL client tools
 RUN touch /etc/apt/sources.list.d/pgdg.list \
