@@ -30,23 +30,29 @@ nodejs \
 # Set locale
 RUN locale-gen en_US.UTF-8
 
-# Install Ruby from source: ruby-x.y.z.tar.xz
-ENV RUBY_MAJOR 2.5
-ENV RUBY_VERSION 2.5.3
-ENV RUBY_DOWNLOAD_SHA256 1cc9d0359a8ea35fc6111ec830d12e60168f3b9b305a3c2578357d360fcf306f
-ENV RUBYGEMS_VERSION 3.0.3
-
+# Install Ruby
+ARG RUBY_DOWNLOAD_URL
+ARG RUBY_DOWNLOAD_SHA256
 RUN mkdir -p /tmp/build/ruby \
 && cd /tmp/build \
-&& wget -q --show-progress --progress=bar:force:noscroll -O ruby.tar.xz "http://ftp.ruby-lang.org/pub/ruby/$RUBY_MAJOR/ruby-$RUBY_VERSION.tar.xz" \
+&& wget -q --show-progress --progress=bar:force:noscroll -O ruby.tar.xz "$RUBY_DOWNLOAD_URL" \
 && echo "$RUBY_DOWNLOAD_SHA256 *ruby.tar.xz" | sha256sum -c - \
 && tar -xJf ruby.tar.xz -C /tmp/build/ruby --strip-components=1 \
 && rm ruby.tar.xz \
 && cd /tmp/build/ruby \
-&& ./configure --enable-shared --disable-install-doc --disable-install-rdoc \
+&& gnuArch="$(dpkg-architecture --query DEB_BUILD_GNU_TYPE)" \
+&& ./configure --build="$gnuArch" --enable-shared --disable-install-doc --disable-install-rdoc \
 && make \
 && make install \
 && rm -rf /tmp/build
+
+ARG BUNDLE_PATH
+ENV BUNDLE_PATH=$BUNDLE_PATH \
+    GEM_HOME=$BUNDLE_PATH \
+	BUNDLE_APP_CONFIG=$BUNDLE_PATH \
+	BUNDLE_SILENCE_ROOT_WARNING=1 
+ENV PATH $GEM_HOME/bin:$BUNDLE_PATH/gems/bin:$PATH
+RUN mkdir -p $BUNDLE_PATH && chmod 777 $BUNDLE_PATH
 
 # RUN mkdir ~/.gnupg && echo "disable-ipv6" >> ~/.gnupg/dirmngr.conf \
 # && gpg2 --keyserver hkp://keys.gnupg.net --recv-keys D39DC0E3 \
@@ -73,12 +79,12 @@ ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en 
 ENV LC_ALL en_US.UTF-8
 
-RUN mkdir -p /app 
-WORKDIR /app
+ARG SOURCE_PATH
+RUN mkdir -p $SOURCE_PATH
   
 EXPOSE 3000
 
-#ENTRYPOINT ["/bin/bash", "-l", "-c"]
+ENTRYPOINT ["/bin/bash", "-l", "-c"]
 
 #ENTRYPOINT ["bundle", "exec"]
 #CMD ["rails", "server", "-b", "0.0.0.0"]

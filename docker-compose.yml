@@ -7,51 +7,64 @@ services:
     app:
         build: ./app/
         image: app:dev
+        networks:
+            - app_network
         ports:
-            - 3000:3000
+            - "3000:3000"
         volumes:
-            - 'c:/projects/ruby/athena/:/app'
+            - '${PROJECT_SOURCE}:${SOURCE_PATH}'
         volumes_from:
-            - bundle
-        working_dir: /app    
-        environment:
-            BUNDLE_PATH: '/bundle'
-        links:
-            - postgres
-            - redis
-            - mongo
+            - app_storage
+        working_dir: ${SOURCE_PATH}
+        build:
+            context: ./app
+            dockerfile: Dockerfile
+            args:
+                SOURCE_PATH: ${SOURCE_PATH}
+                BUNDLE_PATH: ${STORAGE_PATH}/bundle
+                RUBY_DOWNLOAD_URL: ${RUBY_DOWNLOAD_URL}
+                RUBY_DOWNLOAD_SHA256: ${RUBY_DOWNLOAD_SHA256}
         stdin_open: true
         tty: true            
 
-    bundle:
+    app_storage:
         image: busybox
         volumes:
-            - /bundle
+            - ${STORAGE_PATH}
     
     postgres:
         build: ./postgres/
+        networks:
+            - app_network
+        ports:
+            - "5432:5432"
         volumes:
             - postgres:/var/lib/postgresql/data
-        env_file:
-            - '.env'
        
     redis:
         image: redis:4.0-alpine
         command: [redis-server]
+        networks:
+            - app_network
+        ports:
+            - "6379:6379"
         volumes:
             - redis:/var/lib/redis/data
-        env_file:
-            - '.env'
 
     mongo:
         image: mongo:3.6
+        networks:
+            - app_network
+        ports:
+            - "27017:27017"
         volumes:
             - mongo:/data/db
-        env_file:
-            - '.env'
+
+networks:
+    app_network:
 
 volumes:
-  postgres:
-  redis:
-  mongo:
-  
+    postgres:
+    redis:
+    mongo:
+ 
