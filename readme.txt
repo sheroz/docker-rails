@@ -49,6 +49,9 @@ docker volume prune -f
 # clean up everything - remove all images, containers, and networks
 docker system prune --volumes -af
 
+
+gem install bundler -v 1.16.1
+
 references:
 https://www.jetbrains.com/help/ruby/using-docker-as-a-remote-interpreter.html
 

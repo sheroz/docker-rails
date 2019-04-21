@@ -8,8 +8,8 @@ services:
         image: app:dev
         networks:
             - app_network
-        ports:
-            - "3000:3000"
+ #       ports:
+ #           - "3000:3000"
         volumes:
             - '${PROJECT_SOURCE}:${SOURCE_PATH}'
         volumes_from:
