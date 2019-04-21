@@ -19,6 +19,7 @@ ssh \
 libssl1.0-dev \
 libxml2-dev \
 libxslt-dev \
+libredline-dev \
 libpq-dev \
 tzdata \
 locales \
@@ -88,7 +89,7 @@ ARG SOURCE_PATH
 RUN mkdir -p $SOURCE_PATH
   
 EXPOSE 3000
-ENTRYPOINT ["/bin/bash", "-l"]
+#ENTRYPOINT ["/bin/bash", "-l"]
 #ENTRYPOINT ["/bin/bash", "-l", "-c"]
 #ENTRYPOINT ["bundle", "exec"]
 #CMD ["rails", "server", "-b", "0.0.0.0"]

@@ -1,40 +1,43 @@
 # docker-compose.yml
-# Ruby, Rails, PostgreSQL, MongoDB, Redis, Sidekiq, Pry
+# Ruby, PostgreSQL, MongoDB, Redis, Sidekiq, Pry
 
-version: "2"
+version: "3.7"
 services:
     app:
-        build: ./app/
         image: app:dev
-        networks:
-            - app_network
-        ports:
-            - "3000:3000"
-        volumes:
-            - '${PROJECT_SOURCE}:${SOURCE_PATH}'
-        volumes_from:
-            - app_storage
-        working_dir: ${SOURCE_PATH}
+        container_name: app
         build:
             context: ./app
-            dockerfile: Dockerfile
+#            network: host
             args:
                 SOURCE_PATH: ${SOURCE_PATH}
                 BUNDLE_PATH: ${STORAGE_PATH}/bundle
                 RUBY_DOWNLOAD_URL: ${RUBY_DOWNLOAD_URL}
                 RUBY_DOWNLOAD_SHA256: ${RUBY_DOWNLOAD_SHA256}
+        network_mode: "host"        
+#        networks:
+#            - app_network
+        ports:
+            - "3000:3000"
+        volumes:
+            - ${PROJECT_SOURCE}:${SOURCE_PATH}
+            - app_storage:${STORAGE_PATH}
+        working_dir: ${SOURCE_PATH}
         stdin_open: true
         tty: true            
 
-    app_storage:
-        image: busybox
-        volumes:
-            - ${STORAGE_PATH}
+#    app_storage:
+#        image: busybox
+#        volumes:
+#            - ${STORAGE_PATH}
     
     postgres:
-        build: ./postgres/
-        networks:
-            - app_network
+        build:
+            context: ./postgres
+#            network: host
+        network_mode: "host"        
+#        networks:
+#            - app_network
         ports:
             - "5432:5432"
         volumes:
@@ -43,26 +46,35 @@ services:
     redis:
         image: redis:4.0-alpine
         command: [redis-server]
-        networks:
-            - app_network
+#        networks:
+#            - app_network
+        network_mode: "host"        
         ports:
             - "6379:6379"
+#        build:
+#            context: .
+#            network: host
         volumes:
             - redis:/var/lib/redis/data
 
     mongo:
         image: mongo:3.6
-        networks:
-            - app_network
+#        networks:
+#            - app_network
+        network_mode: "host"        
         ports:
             - "27017:27017"
+#        build:
+#            context: .
+#            network: host
         volumes:
             - mongo:/data/db
 
-networks:
-    app_network:
+#networks:
+#    app_network:
 
 volumes:
+    app_storage:
     postgres:
     redis:
     mongo:
