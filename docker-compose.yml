@@ -14,9 +14,9 @@ services:
                 BUNDLE_PATH: ${STORAGE_PATH}/bundle
                 RUBY_DOWNLOAD_URL: ${RUBY_DOWNLOAD_URL}
                 RUBY_DOWNLOAD_SHA256: ${RUBY_DOWNLOAD_SHA256}
-        network_mode: "host"        
-#        networks:
-#            - app_network
+#        network_mode: "host"        
+        networks:
+            - app_network
         ports:
             - "3000:3000"
         volumes:
@@ -24,7 +24,8 @@ services:
             - app_storage:${STORAGE_PATH}
         working_dir: ${SOURCE_PATH}
         stdin_open: true
-        tty: true            
+        tty: true 
+        command: rails s -b '0.0.0.0'
 
 #    app_storage:
 #        image: busybox
@@ -35,9 +36,9 @@ services:
         build:
             context: ./postgres
 #            network: host
-        network_mode: "host"        
-#        networks:
-#            - app_network
+#        network_mode: "host"        
+        networks:
+            - app_network
         ports:
             - "5432:5432"
         volumes:
@@ -46,9 +47,9 @@ services:
     redis:
         image: redis:4.0-alpine
         command: [redis-server]
-#        networks:
-#            - app_network
-        network_mode: "host"        
+        networks:
+            - app_network
+#        network_mode: "host"        
         ports:
             - "6379:6379"
 #        build:
@@ -59,9 +60,9 @@ services:
 
     mongo:
         image: mongo:4.1-bionic
-#        networks:
-#            - app_network
-        network_mode: "host"        
+        networks:
+            - app_network
+#        network_mode: "host"        
         ports:
             - "27017:27017"
 #        build:
@@ -70,8 +71,8 @@ services:
         volumes:
             - mongo:/data/db
 
-#networks:
-#    app_network:
+networks:
+    app_network:
 
 volumes:
     app_storage:
