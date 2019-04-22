@@ -2,12 +2,20 @@ Docker Engine: 18.09.2
 
 Quick reference:
 
+## build containers
 > docker-compose build
+## run containers in the background and leave them running
 > docker-compose up -d
+## open a bash in a running app container
 > docker exec -it app bash
+## install bundler
 # gem install bundler -v 1.16.1
+## install bundles
 # bundle install
-
+## install npm
+# npm install bower -g
+## install bower
+# rake bower:install['--allow-root']
 
 ## run <command> inside the 'app' service container
 > docker-compose run --rm app <command>

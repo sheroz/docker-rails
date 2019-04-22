@@ -1,37 +1,26 @@
 # Dockerfile
 # Docker image app:dev
 
-FROM ubuntu:18.04
+FROM buildpack-deps:bionic
 LABEL maintainer="Sheroz Khaydarov http://sheroz.com"
 
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
 apt-utils \
-autoconf \
 build-essential \
 bison \
-dpkg-dev \
-libgdbm-dev \
-ca-certificates \
-dirmngr \
 gnupg2 \
-openssl \
-ssh \
 libssl1.0-dev \
-libxml2-dev \
-libxslt-dev \
-libredline-dev \
 libpq-dev \
 tzdata \
 locales \
-curl \
-wget \
-zip \
-unzip \
-mc \
-git \
+nodejs-dev \
+node-gyp \
 nodejs \
-&& apt-get clean 
-## && rm -rf /var/lib/apt/lists/* \  
+npm \
+zip \
+mc \
+&& apt-get clean \
+&& rm -rf /var/lib/apt/lists/*  
 
 # Set locale
 RUN locale-gen en_US.UTF-8
@@ -51,6 +40,7 @@ RUN mkdir -p /tmp/build/ruby \
 && ./configure --build="$gnuArch" --enable-shared --disable-install-doc --disable-install-rdoc \
 && make \
 && make install \
+&& cd \
 && rm -rf /tmp/build
 
 ARG BUNDLE_PATH
@@ -59,7 +49,7 @@ ENV GEM_HOME=$BUNDLE_PATH
 ENV	BUNDLE_APP_CONFIG=$BUNDLE_PATH 
 ENV	BUNDLE_SILENCE_ROOT_WARNING=1 
 ENV PATH $GEM_HOME/bin:$BUNDLE_PATH/gems/bin:$PATH
-RUN mkdir -p $BUNDLE_PATH && chmod 777 $BUNDLE_PATH
+RUN mkdir -p $BUNDLE_PATH
 # RUN mkdir ~/.gnupg && echo "disable-ipv6" >> ~/.gnupg/dirmngr.conf \
 # && gpg2 --keyserver hkp://keys.gnupg.net --recv-keys D39DC0E3 \
 # && curl -sSL https://get.rvm.io | bash -s \
