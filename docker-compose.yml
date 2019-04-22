@@ -25,6 +25,8 @@ services:
         working_dir: ${SOURCE_PATH}
         stdin_open: true
         tty: true 
+#        command: bash -l
+#        working_dir: /app
         command: rails s -b '0.0.0.0'
 
 #    app_storage:
@@ -36,22 +38,23 @@ services:
         build:
             context: ./postgres
 #            network: host
-#        network_mode: "host"        
-        networks:
-            - app_network
-        ports:
-            - "5432:5432"
+        network_mode: "service:app"        
+#        networks:
+#            - app_network
+#        ports:
+#            - "5432:5432"
         volumes:
             - postgres:/var/lib/postgresql/data
        
     redis:
         image: redis:4.0-alpine
+        container_name: redis
         command: [redis-server]
-        networks:
-            - app_network
-#        network_mode: "host"        
-        ports:
-            - "6379:6379"
+#        networks:
+#            - app_network
+        network_mode: "service:app"        
+#        ports:
+#            - "6379:6379"
 #        build:
 #            context: .
 #            network: host
@@ -60,11 +63,11 @@ services:
 
     mongo:
         image: mongo:4.1-bionic
-        networks:
-            - app_network
-#        network_mode: "host"        
-        ports:
-            - "27017:27017"
+#        networks:
+#            - app_network
+        network_mode: "service:app"        
+#        ports:
+#            - "27017:27017"
 #        build:
 #            context: .
 #            network: host

@@ -31,6 +31,9 @@ $ rake bower:install['--allow-root']
 > docker run -it app bash
 > docker run -it app irb
 
+## show docker stats (analog of linux's top)
+> docker stats
+
 ## List containers
 > docker-compose ps
 ## List all containers
