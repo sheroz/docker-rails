@@ -9,13 +9,14 @@ Quick reference:
 ## open a bash in a running app container
 > docker exec -it app bash
 ## install bundler
-# gem install bundler -v 1.16.1
+$ gem install bundler -v 1.16.1
 ## install bundles
-# bundle install
-## install npm
-# npm install bower -g
+$ bundle install
 ## install bower
-# rake bower:install['--allow-root']
+$ npm install bower -g
+## build front-end by bower
+$ rake bower:install['--allow-root']
+
 
 ## run <command> inside the 'app' service container
 > docker-compose run --rm app <command>
@@ -60,6 +61,10 @@ Quick reference:
 
 ## clean up everything - remove all images, containers, and networks
 > docker system prune --volumes -af
+
+## Inspect running container
+> docker inspect <container ID>
+
 
 ***
 https://docs.docker.com/engine/reference/run/#network-container
