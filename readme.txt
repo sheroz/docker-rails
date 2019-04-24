@@ -31,6 +31,10 @@ $ rails s -b 0.0.0.0
 # Arguments: cp $FilePath$ app:/opt/app/$FilePathRelativeToProjectRoot$
 # Working directory: $ProjectFileDir$
 ## ---
+# IDE configuration
+# https://www.jetbrains.com/help/ruby/settings-docker-tools.html
+# In the General section of your Docker settings, turn on the Expose daemon on tcp://localhost:2375 without TLS option. 
+## ---
 
 ## run <command> inside the 'app' service container
 > docker-compose run --rm app <command>
@@ -104,3 +108,4 @@ https://www.packet.com/blog/how-to-run-your-rails-app-on-docker/
 https://nftb.saturdaymp.com/today-i-learned-how-to-create-rails-docker-container-without-ruby-installed/
 http://bradgessler.com/articles/docker-bundler/
 https://medium.com/magnetis-backstage/how-to-cache-bundle-install-with-docker-7bed453a5800
+https://auth0.com/blog/ruby-on-rails-killer-workflow-with-docker-part-1/
