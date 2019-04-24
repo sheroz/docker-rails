@@ -93,10 +93,10 @@ ENV LANG en_US.UTF-8
 ENV	LANGUAGE en_US:en 
 ENV LC_ALL en_US.UTF-8
 
-ARG APP_PATH
-ARG SOURCE_PATH
-RUN mkdir -p $APP_PATH && mkdir -p $SOURCE_PATH
-  
+# ARG APP_PATH
+# ARG SOURCE_PATH
+# RUN mkdir -p $APP_PATH && mkdir -p $SOURCE_PATH
+
 EXPOSE 3000
 #ENTRYPOINT ["/bin/bash", "-l"]
 #ENTRYPOINT ["/bin/bash", "-l", "-c"]

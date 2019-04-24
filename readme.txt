@@ -8,15 +8,29 @@ Quick reference:
 > docker-compose up -d
 ## open a bash in a running app container
 > docker exec -it app bash
+## copy source files into app directory
+$ cp -R /opt/src/. /opt/app
 ## install bundler
 $ gem install bundler -v 1.16.1
 ## install bundles
 $ bundle install
 ## install bower
 $ npm install bower -g
-## build front-end by bower
+## build assets
 $ rake bower:install['--allow-root']
+## start rails 
+$ rails s -b 0.0.0.0
+# open browser at http://localhost:3000
 
+## ---
+# source <-> app files synchronization
+# File Watchers configuration for JetBrains IDEs:
+# File type: Any
+# Scope: Project files
+# Program: C:\Program Files\Docker\Docker\resources\bin\docker
+# Arguments: cp $FilePath$ app:/opt/app/$FilePathRelativeToProjectRoot$
+# Working directory: $ProjectFileDir$
+## ---
 
 ## run <command> inside the 'app' service container
 > docker-compose run --rm app <command>

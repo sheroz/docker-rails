@@ -21,7 +21,7 @@ services:
         ports:
             - "3000:3000"
         volumes:
-            - ${PROJECT_SOURCE}:${SOURCE_PATH}
+            - ${HOST_SOURCE_PATH}:${SOURCE_PATH}
             - app_path:${APP_PATH}
             - app_storage:${STORAGE_PATH}
         stdin_open: true
