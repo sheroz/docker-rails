@@ -71,12 +71,31 @@ RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com --recv 2930ADAE8CAF5059EE
 && apt-get -y install mongodb-org-tools mongodb-org-shell \
 && apt-get clean
 
+# Install Unison
+# RUN apt-get update \
+# && apt-get -y install ocaml \
+# && apt-get clean \
+# && mkdir -p /tmp/build/unison \
+# && cd /tmp/build/unison \
+# && curl -O https://www.seas.upenn.edu/~bcpierce/unison//download/releases/stable/unison-2.48.4.tar.gz \
+# && tar -xvzf unison-2.48.4.tar.gz \
+# && cd src \
+# && make UISTYLE=text \
+# && ./unison \
+# && mv unison /usr/local/bin \
+# && mv unison-fsmonitor /usr/local/bin \
+# && cd \
+# && rm -rf /tmp/build \
+# && mkdir -p ~/.unison \
+# && cat "" >> ~/.unison/sync.prf
+
 ENV LANG en_US.UTF-8 
 ENV	LANGUAGE en_US:en 
 ENV LC_ALL en_US.UTF-8
 
+ARG APP_PATH
 ARG SOURCE_PATH
-RUN mkdir -p $SOURCE_PATH
+RUN mkdir -p $APP_PATH && mkdir -p $SOURCE_PATH
   
 EXPOSE 3000
 #ENTRYPOINT ["/bin/bash", "-l"]

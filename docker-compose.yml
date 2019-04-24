@@ -10,6 +10,7 @@ services:
             context: ./app
 #            network: host
             args:
+                APP_PATH: ${APP_PATH}
                 SOURCE_PATH: ${SOURCE_PATH}
                 BUNDLE_PATH: ${STORAGE_PATH}/bundle
                 RUBY_DOWNLOAD_URL: ${RUBY_DOWNLOAD_URL}
@@ -21,24 +22,21 @@ services:
             - "3000:3000"
         volumes:
             - ${PROJECT_SOURCE}:${SOURCE_PATH}
+            - app_path:${APP_PATH}
             - app_storage:${STORAGE_PATH}
-        working_dir: ${SOURCE_PATH}
         stdin_open: true
         tty: true 
-#        command: bash -l
+        working_dir: ${APP_PATH}
+        command: bash -l
+#        command: cp -a ${SOURCE_PATH}/. ${APP_PATH}/ & && bash -l
 #        working_dir: /app
-        command: rails s -b '0.0.0.0'
+#        command: rails s -b '0.0.0.0'
 
-#    app_storage:
-#        image: busybox
-#        volumes:
-#            - ${STORAGE_PATH}
-    
     postgres:
         build:
             context: ./postgres
-#            network: host
         network_mode: "service:app"        
+#            network: host
 #        networks:
 #            - app_network
 #        ports:
@@ -48,38 +46,38 @@ services:
        
     redis:
         image: redis:4.0-alpine
-        container_name: redis
         command: [redis-server]
+        network_mode: "service:app"        
 #        networks:
 #            - app_network
-        network_mode: "service:app"        
 #        ports:
 #            - "6379:6379"
-#        build:
-#            context: .
-#            network: host
         volumes:
             - redis:/var/lib/redis/data
 
     mongo:
         image: mongo:4.1-bionic
+        network_mode: "service:app"        
 #        networks:
 #            - app_network
-        network_mode: "service:app"        
 #        ports:
 #            - "27017:27017"
-#        build:
-#            context: .
-#            network: host
         volumes:
             - mongo:/data/db
+
+#    lsyncd:
+#        build: ./lsyncd
+#        command: -nodaemon -delay 0 -rsync ${SOURCE_PATH} ${APP_PATH}
+#        volumes:
+#            - ${PROJECT_SOURCE}:${SOURCE_PATH}
+#            - app_path:${APP_PATH}
 
 networks:
     app_network:
 
 volumes:
+    app_path:    
     app_storage:
     postgres:
     redis:
     mongo:
-
