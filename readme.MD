@@ -40,17 +40,23 @@ https://www.jetbrains.com/help/ruby/settings-docker-tools.html
 ## run <command> inside the 'app' service container
 > docker-compose run --rm app <command>
 ---
-** samples ** . 
-> docker-compose run --rm app mc \
-> docker-compose run --rm app irb \ 
-> docker-compose run --rm app bundle install  
+** samples ** 
+
+> docker-compose run --rm app mc
+
+> docker-compose run --rm app irb
+
+> docker-compose run --rm app bundle install
 ---
 ## run container app and open a bash console
 ---
-** samples ** . 
-> docker run -it app mc . 
-> docker run -it app bash . 
-> docker run -it app irb . 
+** samples **
+ 
+> docker run -it app mc
+ 
+> docker run -it app bash
+ 
+> docker run -it app irb 
 ---
 ## show docker stats (analog of linux's top)
 > docker stats
