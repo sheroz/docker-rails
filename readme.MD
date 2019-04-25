@@ -1,4 +1,7 @@
-# Ruby on Rails Development on Windows 10 with Docker
+# Docker environment for Ruby on Rails Development ( tested on Windows 10 )
+
+The full description would be soon...
+
 ## Docker Engine: 18.09.2
 
 ## 1. Set build parameters in the .env file
