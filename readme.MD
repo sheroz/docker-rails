@@ -47,11 +47,8 @@ In the General section of your Docker settings, turn on the Expose daemon on tcp
 https://www.jetbrains.com/help/ruby/settings-docker-tools.html
 
 ## Solution to fix following error messages is - restarting Docker after each reboot :) 
----
-Cannot start service app: driver failed programming external connectivity on endpoint (...) 
+Cannot start service app: driver failed programming external connectivity on endpoint (...)  Error starting userland proxy: (...)
 
-Error starting userland proxy: (...)
----
 # Quick reference of docker commands:
 ## run <command> inside the 'app' service container
 > docker-compose run --rm app <command>
