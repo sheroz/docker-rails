@@ -44,12 +44,13 @@ https://www.jetbrains.com/help/ruby/settings-docker-tools.html
 ### > docker-compose run --rm app irb
 ### > docker-compose run --rm app bundle install
 
-## run container app and open a bash console 
-* samples
-* > docker run -it app mc
-* > docker run -it app bash
-* > docker run -it app irb
-
+## run container app and open a bash console
+---
+** samples **
+> docker run -it app mc
+> docker run -it app bash
+> docker run -it app irb
+---
 ## show docker stats (analog of linux's top)
 > docker stats
 
