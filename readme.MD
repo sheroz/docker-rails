@@ -2,7 +2,7 @@
 
 The full description would be soon...
 
-## Docker Engine: 18.09.2
+## Docker engine version: 18.09.2 (Docker Desktop for Windows)
 
 ## 1. Set build parameters in the .env file
 ## 2. Build containers
