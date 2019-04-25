@@ -2,7 +2,7 @@
 
 The full description would be soon...
 
-For short: I am using this environment for Ruby on Rails development on Windows. To achieve better performance to synchronize host based source files with the in-container directory, I am using File Watchers plugin on RubyMine (after having tried many other different options like unison, lsyncd, ...). The development performance and overall rails server performance is acceptable (I can say that it is really good, not a big difference compared to the MacBook Pro I normally used for Rails development at office). 
+For short: I am using this environment for Ruby on Rails development on Windows. To achieve better performance in synchronizing source files on the host with the in-container directory, I am using File Watchers plugin on RubyMine (after having tried many other different options like unison, lsyncd, ...). The development performance and overall rails server performance is acceptable (I can say that it is really good, not a big difference compared to the MacBook Pro I normally used for Rails development at office). 
 
 ## Docker engine version: 18.09.2 (Docker Desktop for Windows)
 
