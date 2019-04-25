@@ -20,7 +20,7 @@ $ npm install bower -g
 $ rake bower:install['--allow-root']
 ## 9. Start rails 
 $ rails s -b 0.0.0.0
-## 10. open browser at http://localhost:3000
+## 10. Open browser at http://localhost:3000
 
 ## Source <-> App files synchronization
 ## File Watchers configuration for JetBrains IDEs:
