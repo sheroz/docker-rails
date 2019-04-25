@@ -24,11 +24,11 @@ $ rails s -b 0.0.0.0
 
 ## Source <-> App files synchronization
 ## File Watchers configuration for JetBrains IDEs:
-File type: Any
-Scope: Project files
-Program: C:\Program Files\Docker\Docker\resources\bin\docker
-Arguments: cp $FilePath$ app:/opt/app/$FilePathRelativeToProjectRoot$
-Working directory: $ProjectFileDir$
+### File type: Any
+### Scope: Project files
+### Program: C:\Program Files\Docker\Docker\resources\bin\docker
+### Arguments: cp $FilePath$ app:/opt/app/$FilePathRelativeToProjectRoot$
+### Working directory: $ProjectFileDir$
 
 ## Docker Engine configuration
 In the General section of your Docker settings, turn on the Expose daemon on tcp://localhost:2375 without TLS option. 
@@ -40,15 +40,15 @@ https://www.jetbrains.com/help/ruby/settings-docker-tools.html
 ## run <command> inside the 'app' service container
 > docker-compose run --rm app <command>
 ## samples
-> docker-compose run --rm app mc
-> docker-compose run --rm app irb
-> docker-compose run --rm app bundle install
+### > docker-compose run --rm app mc
+### > docker-compose run --rm app irb
+### > docker-compose run --rm app bundle install
 
 ## run container app and open a bash console 
 ## samples
-> docker run -it app mc
-> docker run -it app bash
-> docker run -it app irb
+### > docker run -it app mc
+### > docker run -it app bash
+### > docker run -it app irb
 
 ## show docker stats (analog of linux's top)
 > docker stats
