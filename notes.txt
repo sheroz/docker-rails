@@ -1,0 +1,24 @@
+
+***
+https://docs.docker.com/engine/reference/run/#network-container
+docker run -d --name postgres1 athena_postgres:latest
+docker run --rm -it --network container:postgres1 app:dev
+
+ docker run -d --network=host athena_postgres:latest
+ docker run --rm -it --network=host app:dev
+***
+
+References:
+https://www.jetbrains.com/help/ruby/using-docker-as-a-remote-interpreter.html
+
+https://revs.runtime-revolution.com/setting-up-a-simple-rails-development-environment-with-docker-for-fun-and-profit-71b8aa0d33c1
+https://tomazy.com/blog/2017/05/rails-development-with-docker/
+https://github.com/cweagans/docker-bg-sync
+https://blog.codeship.com/running-rails-development-environment-docker/
+https://nickjanetakis.com/blog/dockerize-a-rails-5-postgres-redis-sidekiq-action-cable-app-with-docker-compose
+https://www.packet.com/blog/how-to-run-your-rails-app-on-docker/
+
+https://nftb.saturdaymp.com/today-i-learned-how-to-create-rails-docker-container-without-ruby-installed/
+http://bradgessler.com/articles/docker-bundler/
+https://medium.com/magnetis-backstage/how-to-cache-bundle-install-with-docker-7bed453a5800
+https://auth0.com/blog/ruby-on-rails-killer-workflow-with-docker-part-1/
