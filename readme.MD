@@ -46,7 +46,7 @@ In the General section of your Docker settings, turn on the Expose daemon on tcp
 ## RubyMin IDE configuration
 https://www.jetbrains.com/help/ruby/settings-docker-tools.html
 
-## Solution to fix following error messages is - restart Docker after each reboot :) 
+## Solution to fix the error messages below is - restart Docker after each reboot :) 
 Cannot start service app: driver failed programming external connectivity on endpoint (...)  Error starting userland proxy: (...)
 
 # Quick reference of docker commands:
