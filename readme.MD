@@ -30,9 +30,11 @@ Program: C:\Program Files\Docker\Docker\resources\bin\docker
 Arguments: cp $FilePath$ app:/opt/app/$FilePathRelativeToProjectRoot$
 Working directory: $ProjectFileDir$
 
-## IDE configuration
-https://www.jetbrains.com/help/ruby/settings-docker-tools.html
+## Docker Engine configuration
 In the General section of your Docker settings, turn on the Expose daemon on tcp://localhost:2375 without TLS option. 
+
+## RubyMin IDE configuration
+https://www.jetbrains.com/help/ruby/settings-docker-tools.html
 
 # Quick reference of docker commands:
 ## run <command> inside the 'app' service container
