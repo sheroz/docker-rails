@@ -2,6 +2,8 @@
 
 The full description would be soon...
 
+For short: I am using this environment for Ruby on Rails development on Windows. To achieve a better performance, I am using File Watchers plugin on RubyMine to synchronize host based source files with the in-container directory. The development performance and overall rails server performance is acceptable (good).
+
 ## Docker engine version: 18.09.2 (Docker Desktop for Windows)
 
 ## 1. Set build parameters in the .env file
