@@ -1,8 +1,6 @@
 # Docker environment for Ruby on Rails Developemnt (tested on Windows 10 )
 ## Docker Engine: 18.09.2
 
-Quick reference:
-
 ## 1. Set build parameters in the .env file
 ## 2. Build containers
 > docker-compose build
@@ -24,7 +22,7 @@ $ rake bower:install['--allow-root']
 $ rails s -b 0.0.0.0
 ## 10. open browser at http://localhost:3000
 
-# Source <-> App files synchronization
+## Source <-> App files synchronization
 ## File Watchers configuration for JetBrains IDEs:
 File type: Any
 Scope: Project files
@@ -36,6 +34,7 @@ Working directory: $ProjectFileDir$
 https://www.jetbrains.com/help/ruby/settings-docker-tools.html
 In the General section of your Docker settings, turn on the Expose daemon on tcp://localhost:2375 without TLS option. 
 
+# Quick reference of docker commands:
 ## run <command> inside the 'app' service container
 > docker-compose run --rm app <command>
 ## samples
