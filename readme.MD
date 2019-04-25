@@ -41,9 +41,9 @@ https://www.jetbrains.com/help/ruby/settings-docker-tools.html
 > docker-compose run --rm app <command>
 ---
 ** samples ** . 
-> docker-compose run --rm app mc . 
-> docker-compose run --rm app irb . 
-> docker-compose run --rm app bundle install . 
+> docker-compose run --rm app mc \
+> docker-compose run --rm app irb \ 
+> docker-compose run --rm app bundle install  
 ---
 ## run container app and open a bash console
 ---
