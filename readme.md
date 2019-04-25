@@ -3,25 +3,26 @@
 
 Quick reference:
 
-## build containers
+## 1. Set build parameters in the .env file
+## 2. Build containers
 > docker-compose build
 ## run containers in the background and leave them running
 > docker-compose up -d
-## open a bash in a running app container
+## 3. Open a bash console in the running app container
 > docker exec -it app bash
-## copy source files into app directory
+## 4. Initial copy of source files into app directory
 $ cp -R /opt/src/. /opt/app
-## install bundler
+## 5. Install bundler
 $ gem install bundler -v 1.16.1
-## install bundles
+## 6. Install bundles
 $ bundle install
-## install bower
+## 7. Install bower
 $ npm install bower -g
-## build assets
+## 8. Build assets
 $ rake bower:install['--allow-root']
-## start rails 
+## 9. Start rails 
 $ rails s -b 0.0.0.0
-# open browser at http://localhost:3000
+## 10. open browser at http://localhost:3000
 
 # Source <-> App files synchronization
 ## File Watchers configuration for JetBrains IDEs:
