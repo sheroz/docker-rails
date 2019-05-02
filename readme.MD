@@ -8,11 +8,9 @@ As a base image for the app (Ruby on Rails) container I use Ubunutu 18.0.4 (bion
 
 About network settings for the database and redis services: The app service needed to access databases and redis on localhost (127.0.0.1) and this achieved by using **network_mode: "service:[service name]"** option.
 
-I normally start rails in bash console. This allows me to control the messages and debug using **binding.pry**
-
-When needed, I use another separate bash console to start sidekiq.
-
-Also, the app image has bunch of tools, including the mc (Midnight Commander)
+I normally start rails in bash console. This allows me to control the messages and debug using **binding.pry**.
+When needed, I use another separate bash console to start **sidekiq**.
+Also, the app image has bunch of tools, including the **mc** (Midnight Commander)
 
 The development and overall rails performance is acceptable. I can say that I feel no big difference compared to the development on the MacBook Pro what I normally used for Rails development at the office. The hardware components of the hosts (CPU, SSD, RAM) are approximately the same. 
 
