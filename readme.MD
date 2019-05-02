@@ -1,6 +1,6 @@
 # Docker environment for Ruby on Rails Development ( tested on Windows 10 )
 
-The full description is coming soon... :) 
+The full description may come soon... :) 
 
 I am using this environment for Ruby on Rails development on Windows.
 
