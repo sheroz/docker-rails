@@ -6,7 +6,7 @@ I am using this environment for Ruby on Rails development on Windows.
 
 As a base image for the app (Ruby on Rails) container I use Ubunutu 18.0.4 (bionic) to make sure that it would work the same way in development as in production. To achieve better performance in synchronizing source files on the host with the in-container directory (I had to duplicate sources inside of the container, because directly accessing mounted host files is very slow and, unfortunately, the volume 'cached' option does not work yet for Windows based hosts), I use File Watchers plugin on RubyMine (finally, after having tried many other different options like unison, lsyncd, ...).
 
-About network settings for database and redis services: The app service needed to access databases and redis on localhost (127.0.0.1) and this achieved by using **network_mode: "service:[service name]"** option.
+About network settings for the database and redis services: The app service needed to access databases and redis on localhost (127.0.0.1) and this achieved by using **network_mode: "service:[service name]"** option.
 
 The development performance and overall rails server performance is acceptable (I can say that it is really good, not a big difference compared to the MacBook Pro I normally used for Rails development at office). 
 
