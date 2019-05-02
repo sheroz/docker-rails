@@ -2,7 +2,7 @@
 
 The full description is coming soon... :) 
 
-For short: I am using this environment for Ruby on Rails development on Windows.
+The brief: I am using this environment for Ruby on Rails development on Windows.
 
 As a base image for the app (Ruby on Rails) container I use Ubunutu 18.0.4 (bionic) to make sure that it would work the same way in development as in production. To achieve better performance in synchronizing source files on the host with the in-container directory (I had to duplicate sources inside of the container, because directly accessing mounted host files is very slow and, unfortunately, the volume 'cached' option does not work yet for Windows based hosts), I use File Watchers plugin on RubyMine (finally, after having tried many other different options like unison, lsyncd, ...).
 
