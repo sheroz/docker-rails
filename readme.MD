@@ -26,7 +26,7 @@ The development and overall rails performance is acceptable. I can say that I fe
 ## 4. Initial copy of source files into app directory
 $ cp -R /opt/src/. /opt/app
 ## 5. Install bundler
-$ gem install bundler -v 1.16.1
+$ gem install bundler -v 1.17.0
 ## 6. Install bundles
 $ bundle install
 ## 7. Install bower
