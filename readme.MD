@@ -1,8 +1,18 @@
 # Docker environment for Ruby on Rails Development ( tested on Windows 10 )
 
-The full description would be soon...
+The full description may or may not come soon... :) 
 
-For short: I am using this environment for Ruby on Rails development on Windows. To achieve better performance in synchronizing source files on the host with the in-container directory, I am using File Watchers plugin on RubyMine (after having tried many other different options like unison, lsyncd, ...). The development performance and overall rails server performance is acceptable (I can say that it is really good, not a big difference compared to the MacBook Pro I normally used for Rails development at office). 
+I am using this environment for Ruby on Rails development on Windows.
+
+I use Ubunutu 18.0.4 (bionic) as a base image for the app (Ruby on Rails) container to make sure that it would work the same way in development as in production. To achieve better performance in synchronizing source files on the host with the in-container directory (I had to duplicate sources inside of the container, because directly accessing mounted host files is very slow and, unfortunately, the volume 'cached' option does not work yet for Windows based hosts), I use File Watchers plugin on RubyMine (finally, after having tried many other different options like unison, lsyncd, ...).
+
+About network settings for the database and redis services: The app service needed access to the databases and redis on the same network's localhost (127.0.0.1) and this required is achieved by using **network_mode: "service:[service name]"** option.
+
+I normally start rails in bash console and that allows to control messages and debug using **binding.pry**.
+When needed, I use another separate bash console to start **sidekiq**.
+Also, the app image has bunch of tools, including the **mc** (Midnight Commander)
+
+The development and overall rails performance is acceptable. I can say that I feel no big difference compared to the development on the MacBook Pro what I normally use for Rails development at the office. The hardware components of the hosts (CPU, SSD, RAM) are approximately the same. 
 
 ## Docker engine version: 18.09.2 (Docker Desktop for Windows)
 
@@ -45,6 +55,9 @@ In the General section of your Docker settings, turn on the Expose daemon on tcp
 
 ## RubyMin IDE configuration
 https://www.jetbrains.com/help/ruby/settings-docker-tools.html
+
+## Solution to fix the error messages below is - restart Docker after each reboot :) 
+Cannot start service app: driver failed programming external connectivity on endpoint (...)  Error starting userland proxy: (...)
 
 # Quick reference of docker commands:
 ## run <command> inside the 'app' service container
