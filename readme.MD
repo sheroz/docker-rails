@@ -40,7 +40,9 @@ $ rails s -b 0.0.0.0
 ## Starting RSpec tests
 $ bundle exec rspec
 
-## Capistrano related - test github connection
+## Capistrano Authentication & Authorisation
+https://capistranorb.com/documentation/getting-started/authentication-and-authorisation/
+
 $ ssh -vT git@github.com
 
 $ eval $(ssh-agent)
