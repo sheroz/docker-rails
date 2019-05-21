@@ -21,21 +21,30 @@ The development and overall rails performance is acceptable. I can say that I fe
 > docker-compose build
 ## run containers in the background and leave them running
 > docker-compose up -d
-## 3. Open a bash console in the running app container
-> docker exec -it app bash
-## 4. Initial copy of source files into app directory
-$ cp -R /opt/src/. /opt/app
-## 5. Install bundler
-$ gem install bundler -v 1.17.0
-## 6. Install bundles
-$ bundle install
-## 7. Install bower
+## 3. Install bower (needs a root access)
+> docker exec -u 0 app bash
 $ npm install bower -g
-## 8. Build assets
+$ exit
+## 4. Open a bash console in the running app container (as a default user)
+> docker exec -it app bash
+## 5. Prepare directories
+$ mkdir -p $BUNDLE_PATH
+$ chmod 700 $BUNDLE_PATH
+$ mkdir -p /opt/src
+## 6. Initial copy of source files into app directory
+$ cp -R /opt/src/. /opt/app
+## 7. Install bundler
+$ gem install bundler -v 1.17.0
+## 8. Install bundles (try bundle update if install doesn't work)
+$ bundle install
+## 9. Build assets
 $ rake bower:install['--allow-root']
-## 9. Start rails 
+## 10. Start rails 
 $ rails s -b 0.0.0.0
-## 10. Open browser at http://localhost:3000
+## 11. Open browser at http://localhost:3000
+
+## Opening a bash console in the running app container as a root
+> docker-compose exec -u 0 app bash
 
 ## Starting RSpec tests
 $ bundle exec rspec

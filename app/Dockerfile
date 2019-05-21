@@ -25,37 +25,6 @@ mc \
 # Set locale
 RUN locale-gen en_US.UTF-8
 
-# Install Ruby
-ARG RUBY_DOWNLOAD_URL 
-ARG RUBY_DOWNLOAD_SHA256
-RUN mkdir -p /tmp/build/ruby \
-&& cd /tmp/build \
-&& wget -q --show-progress --progress=bar:force:noscroll -O ruby.tar.xz "$RUBY_DOWNLOAD_URL" \
-&& echo "$RUBY_DOWNLOAD_SHA256 *ruby.tar.xz" | sha256sum -c - \
-&& tar -xJf ruby.tar.xz -C /tmp/build/ruby --strip-components=1 \
-&& rm ruby.tar.xz \
-&& cd /tmp/build/ruby \
-&& gnuArch="$(dpkg-architecture --query DEB_BUILD_GNU_TYPE)" \
-&& autoconf \
-&& ./configure --build="$gnuArch" --enable-shared --disable-install-doc --disable-install-rdoc \
-&& make \
-&& make install \
-&& cd \
-&& rm -rf /tmp/build
-
-ARG BUNDLE_PATH
-ENV BUNDLE_PATH=$BUNDLE_PATH 
-ENV GEM_HOME=$BUNDLE_PATH 
-ENV	BUNDLE_APP_CONFIG=$BUNDLE_PATH 
-ENV	BUNDLE_SILENCE_ROOT_WARNING=1 
-ENV PATH $GEM_HOME/bin:$BUNDLE_PATH/gems/bin:$PATH
-RUN mkdir -p $BUNDLE_PATH
-# RUN mkdir ~/.gnupg && echo "disable-ipv6" >> ~/.gnupg/dirmngr.conf \
-# && gpg2 --keyserver hkp://keys.gnupg.net --recv-keys D39DC0E3 \
-# && curl -sSL https://get.rvm.io | bash -s \
-# && /bin/bash -l -c ". /etc/profile.d/rvm.sh" \
-# && /bin/bash -l -c "rvm install 2.5.3"
-
 # Install PostgreSQL client tools
 RUN touch /etc/apt/sources.list.d/pgdg.list \
 && echo "deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main" >> /etc/apt/sources.list.d/pgdg.list \
@@ -89,6 +58,47 @@ RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com --recv 2930ADAE8CAF5059EE
 # && mkdir -p ~/.unison \
 # && cat "" >> ~/.unison/sync.prf
 
+# Install Ruby with RVM
+# RUN mkdir ~/.gnupg && echo "disable-ipv6" >> ~/.gnupg/dirmngr.conf \
+# && gpg2 --keyserver hkp://keys.gnupg.net --recv-keys D39DC0E3 \
+# && curl -sSL https://get.rvm.io | bash -s \
+# && /bin/bash -l -c ". /etc/profile.d/rvm.sh" \
+# && /bin/bash -l -c "rvm install 2.5.3"
+
+# Install Ruby from source
+ARG RUBY_DOWNLOAD_URL 
+ARG RUBY_DOWNLOAD_SHA256
+RUN mkdir -p /tmp/build/ruby \
+&& cd /tmp/build \
+&& wget -q --show-progress --progress=bar:force:noscroll -O ruby.tar.xz "$RUBY_DOWNLOAD_URL" \
+&& echo "$RUBY_DOWNLOAD_SHA256 *ruby.tar.xz" | sha256sum -c - \
+&& tar -xJf ruby.tar.xz -C /tmp/build/ruby --strip-components=1 \
+&& rm ruby.tar.xz \
+&& cd /tmp/build/ruby \
+&& gnuArch="$(dpkg-architecture --query DEB_BUILD_GNU_TYPE)" \
+&& autoconf \
+&& ./configure --build="$gnuArch" --enable-shared --disable-install-doc --disable-install-rdoc \
+&& make \
+&& make install \
+&& cd \
+&& rm -rf /tmp/build
+
+ARG HOST_USER
+RUN adduser --disabled-password --gecos "" $HOST_USER
+
+USER $HOST_USER
+
+ARG BUNDLE_PATH
+# RUN mkdir -p $BUNDLE_PATH
+# RUN chmod 700 $BUNDLE_PATH
+
+ENV BUNDLE_PATH=$BUNDLE_PATH 
+ENV GEM_HOME=$BUNDLE_PATH 
+ENV	BUNDLE_APP_CONFIG=$BUNDLE_PATH 
+ENV	BUNDLE_SILENCE_ROOT_WARNING=1 
+ENV PATH $GEM_HOME/bin:$BUNDLE_PATH/gems/bin:$PATH
+RUN echo "export PATH=$GEM_HOME/bin:$BUNDLE_PATH/gems/bin:$PATH" >> /home/$HOST_USER/.bashrc
+
 ENV LANG en_US.UTF-8 
 ENV	LANGUAGE en_US:en 
 ENV LC_ALL en_US.UTF-8
@@ -98,6 +108,7 @@ ENV LC_ALL en_US.UTF-8
 # RUN mkdir -p $APP_PATH && mkdir -p $SOURCE_PATH
 
 EXPOSE 3000
+
 #ENTRYPOINT ["/bin/bash", "-l"]
 #ENTRYPOINT ["/bin/bash", "-l", "-c"]
 #ENTRYPOINT ["bundle", "exec"]
