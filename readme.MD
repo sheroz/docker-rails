@@ -40,9 +40,11 @@ $ rails s -b 0.0.0.0
 ## Starting RSpec tests
 $ bundle exec rspec
 
-## Capistrano related 
+## Capistrano related - test github connection
 $ ssh -vT git@github.com
+
 $ eval $(ssh-agent)
+
 $ ssh-add ~/.ssh/id_rsa
 
 ## Source <-> App files synchronization
