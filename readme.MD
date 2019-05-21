@@ -12,7 +12,7 @@ I normally start rails in bash console and that allows to control messages and d
 When needed, I use another separate bash console to start **sidekiq**.
 Also, the app image has bunch of tools, including the **mc** (Midnight Commander)
 
-The development and overall rails performance is acceptable. I can say that I feel no big difference compared to the development on  MacBook Pro 15 2018 what I normally use for Rails development at the office. The hardware components of the hosts (CPU, SSD, RAM) are approximately the same. 
+The development and overall rails performance is acceptable. I can say that the difference not a big, compared to the development on  MacBook Pro 15 2018 what I normally use for Rails development at the office. The hardware components of the hosts (CPU, SSD, RAM) are approximately the same. 
 
 ## Docker engine version: 18.09.2 (Docker Desktop for Windows)
 
