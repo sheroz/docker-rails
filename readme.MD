@@ -43,11 +43,36 @@ $ bundle exec rspec
 ## Capistrano Authentication & Authorisation
 https://capistranorb.com/documentation/getting-started/authentication-and-authorisation/
 
+## Test github authentication (needed for Capistrano) 
 $ ssh -vT git@github.com
+
+## Capistrano deploy as authorized user
+$ apt-get -y install sudo
+
+$ adduser sheroz
+
+$ usermod -aG sudo sheroz
+
+$ echo "sheroz  ALL=(ALL:ALL) ALL" >> /etc/sudoers
+
+$ mkdir /home/sheroz/.ssh
+
+$ cp /opt/storage/keys/id_rsa /home/sheroz/.ssh/id_rsa
+
+$ chown sheroz:sheroz /home/sheroz/.ssh/id_rsa
+
+$ chmod 600 /home/sheroz/.ssh/id_rsa
+
+$ su sheroz
+
+$ export PATH="$GEM_HOME/bin:$BUNDLE_PATH/gems/bin:$PATH"
 
 $ eval $(ssh-agent)
 
 $ ssh-add ~/.ssh/id_rsa
+
+$ cap staging deploy
+
 
 ## Source <-> App files synchronization
 ## File Watchers configuration for JetBrains IDEs:
