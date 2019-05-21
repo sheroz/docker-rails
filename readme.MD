@@ -37,6 +37,9 @@ $ rake bower:install['--allow-root']
 $ rails s -b 0.0.0.0
 ## 10. Open browser at http://localhost:3000
 
+## Starting RSpec tests
+$ bundle exec rspec
+
 ## Source <-> App files synchronization
 ## File Watchers configuration for JetBrains IDEs:
 **File type:** Any
