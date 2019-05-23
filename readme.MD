@@ -8,10 +8,11 @@ I use Ubunutu 18.0.4 (bionic) as a base image for the **app** (Ruby on Rails) co
 
 About network settings for the database and redis services: The app service needed access to the databases and redis on the same network's localhost (127.0.0.1) and this required is achieved by using **network_mode: "service:[service name]"** option.
 
+The **app** container runs in user mode.
+
 I normally start rails in bash console and that allows to control messages and debug using **binding.pry**.
 When needed, I am running another separate bash console to start **sidekiq** service.
 Also, the app image has bunch of tools, including the **mc** (Midnight Commander)
-The **app** container starts in user mode.
 The **sudo** command is availabe without password prompt.
 I use **capistrano** inside **app** container as a deployment automation tool.
 
