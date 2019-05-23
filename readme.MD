@@ -62,7 +62,7 @@ $ chown sheroz:sheroz /opt/storage/keys/id_rsa
 $ chmod 600 /opt/storage/keys/id_rsa
 
 ## Capistrano deploy as authorized user
-> docker-compose exec -u 0 app bash
+\> docker-compose exec -u 0 app bash
 
 $ su sheroz
 
