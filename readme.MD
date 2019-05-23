@@ -12,7 +12,7 @@ The **app** container runs in user mode.
 
 I normally start rails in bash console and that allows to control messages and debug using **binding.pry**.
 When needed, I am running another separate bash console to start **sidekiq** service.
-The app image has bunch of tools, including the **mc** ([The Midnight Commander](http://midnight-commander.org), my favorite file manager)
+The app image has bunch of tools, including the **mc** ([The Midnight Commander](http://midnight-commander.org), my favorite file manager).
 The **sudo** command is availabe without password prompt.
 I use **capistrano** inside **app** container as a deployment automation tool.
 
