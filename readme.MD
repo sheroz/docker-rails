@@ -54,8 +54,7 @@ $ bundle exec rspec
 ## Capistrano: Authentication & Authorisation configuratiom
 https://capistranorb.com/documentation/getting-started/authentication-and-authorisation/
 ### Make sure that you have correct id_rsa settings in .env file
-### id_rsa file should have correct permissions
-### replace 'sheroz' with your username
+### id_rsa file should have correct permissions. Replace 'sheroz' with your username 
 \> docker-compose exec app bash
 
 $ chown sheroz:sheroz /opt/storage/keys/id_rsa
