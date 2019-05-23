@@ -23,8 +23,11 @@ The development and overall rails performance is acceptable. I can say that the 
 > docker-compose up -d
 ## 3. Install bower (needs a root access)
 > docker exec -u 0 app bash
+
 $ npm install bower -g
+
 $ exit
+
 ## 4. Open a bash console in the running app container (as a default user)
 > docker exec -it app bash
 ## 5. Prepare directories
@@ -55,12 +58,16 @@ https://capistranorb.com/documentation/getting-started/authentication-and-author
 ## Make sure that you have id_rsa setting correct in .env 
 ## id_rsa file should have correct permissions
 $ chown sheroz:sheroz /opt/storage/keys/id_rsa
+
 $ chmod 600 /opt/storage/keys/id_rsa
 
 ## Capistrano deploy as authorized user
 > docker-compose exec -u 0 app bash
+
 $ su sheroz
+
 $ cd /opt/src
+
 $ cap staging deploy
 
 ## Test github authentication (needed for Capistrano) 
@@ -68,10 +75,12 @@ $ ssh -vT git@github.com
 
 ## Adding sudo user
 $ apt-get -y install sudo
-$ adduser sheroz
-$ usermod -aG sudo sheroz
-$ echo "sheroz  ALL=(ALL:ALL) ALL" >> /etc/sudoers
 
+$ adduser sheroz
+
+$ usermod -aG sudo sheroz
+
+$ echo "sheroz  ALL=(ALL:ALL) ALL" >> /etc/sudoers
 
 ## Source <-> App files synchronization
 ## File Watchers configuration for JetBrains IDEs:
