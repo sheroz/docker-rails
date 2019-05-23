@@ -29,10 +29,9 @@ services:
         stdin_open: true
         tty: true 
         working_dir: ${APP_PATH}
-        command: bash -l
-#        command: cp -a ${SOURCE_PATH}/. ${APP_PATH}/ & && bash -l
-#        working_dir: /app
-#        command: rails s -b '0.0.0.0'
+#       command: bash -l && su ${HOST_USER}
+#       working_dir: /app
+#       command: cp -a ${SOURCE_PATH}/. ${APP_PATH}/ & && bash -l
 
     postgres:
         build:

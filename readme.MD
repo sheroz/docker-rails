@@ -21,66 +21,48 @@ The development and overall rails performance is acceptable. I can say that the 
 \> docker-compose build
 ## run containers in the background and leave them running
 \> docker-compose up -d
-## 3. Install bower (needs a root access)
-\> docker exec -u 0 app bash
-
-$ npm install bower -g
-
-$ exit
-
-## 4. Open a bash console in the running app container (as a default user)
+## 3. Install bower
 \> docker exec -it app bash
-## 5. Prepare directories
-$ mkdir -p $BUNDLE_PATH
-$ chmod 700 $BUNDLE_PATH
-$ mkdir -p /opt/src
-## 6. Initial copy of source files into app directory
-$ cp -R /opt/src/. /opt/app
-## 7. Install bundler
-$ gem install bundler -v 1.17.0
-## 8. Install bundles (try bundle update if install doesn't work)
-$ bundle install
-## 9. Build assets
-$ rake bower:install['--allow-root']
-## 10. Start rails 
-$ rails s -b 0.0.0.0
-## 11. Open browser at http://localhost:3000
 
-## Opening a bash console in the running app container as a root
-\> docker-compose exec -u 0 app bash
+$ sudo npm install bower -g
+## 4. Prepare directories
+$ mkdir -p $BUNDLE_PATH
+
+$ chmod 700 $BUNDLE_PATH
+
+$ mkdir -p /opt/src
+## 5. Initial copy of source files into app directory
+$ cp -R /opt/src/. /opt/app
+## 6. Install bundler
+$ gem install bundler -v 1.17.0
+## 7. Install bundles (try bundle update if install doesn't work)
+$ bundle install
+## 8. Build assets
+$ rake bower:install['--allow-root']
+## 9. Start rails 
+$ rails s -b 0.0.0.0
+## 10. Open host's browser at http://localhost:3000
 
 ## Starting RSpec tests
+\> docker-compose exec app bash
 $ bundle exec rspec
 
-## Capistrano Authentication & Authorisation
+## Capistrano: Authentication & Authorisation configuratiom
 https://capistranorb.com/documentation/getting-started/authentication-and-authorisation/
-
-## Make sure that you have id_rsa setting correct in .env 
-## id_rsa file should have correct permissions
+### Make sure that you have correct id_rsa settings in .env file
+### id_rsa file should have correct permissions
+\> docker-compose exec app bash
 $ chown sheroz:sheroz /opt/storage/keys/id_rsa
 
 $ chmod 600 /opt/storage/keys/id_rsa
-
-## Capistrano deploy as authorized user
-\> docker-compose exec -u 0 app bash
-
-$ su sheroz
+### Capistrano: deploy
+\> docker-compose exec app bash
 
 $ cd /opt/src
 
 $ cap staging deploy
-
-## Test github authentication (needed for Capistrano) 
+### Capistrano: test github access
 $ ssh -vT git@github.com
-
-## Adding sudo user
-$ apt-get -y install sudo
-
-$ adduser sheroz
-
-$ usermod -aG sudo sheroz
-
-$ echo "sheroz  ALL=(ALL:ALL) ALL" >> /etc/sudoers
 
 ## Source / App files synchronization
 ## File Watchers configuration for JetBrains IDEs:
@@ -93,7 +75,6 @@ $ echo "sheroz  ALL=(ALL:ALL) ALL" >> /etc/sudoers
 **Arguments:** cp $FilePath$ app:/opt/app/$FilePathRelativeToProjectRoot$
 
 **Working directory:** $ProjectFileDir$
-
 
 ## Docker Engine configuration
 In the General section of your Docker settings, turn on the Expose daemon on tcp://localhost:2375 without TLS option. 

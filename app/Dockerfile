@@ -84,24 +84,31 @@ RUN mkdir -p /tmp/build/ruby \
 && rm -rf /tmp/build
 
 ARG HOST_USER
-RUN adduser --disabled-password --gecos "" $HOST_USER
-
-USER $HOST_USER
-
 ARG BUNDLE_PATH
-# RUN mkdir -p $BUNDLE_PATH
-# RUN chmod 700 $BUNDLE_PATH
+ARG SSH_PRIVATE_KEY
 
 ENV BUNDLE_PATH=$BUNDLE_PATH 
 ENV GEM_HOME=$BUNDLE_PATH 
 ENV	BUNDLE_APP_CONFIG=$BUNDLE_PATH 
 ENV	BUNDLE_SILENCE_ROOT_WARNING=1 
 ENV PATH $GEM_HOME/bin:$BUNDLE_PATH/gems/bin:$PATH
-RUN echo "export PATH=$GEM_HOME/bin:$BUNDLE_PATH/gems/bin:$PATH" >> /home/$HOST_USER/.bashrc
-RUN mkdir -p /home/$HOST_USER/.ssh
-RUN echo 'eval $(ssh-agent)' >> /home/$HOST_USER/.bashrc
-ARG SSH_PRIVATE_KEY
-RUN echo "if [ -f $SSH_PRIVATE_KEY ]; then ssh-add $SSH_PRIVATE_KEY; fi" >> /home/$HOST_USER/.bashrc
+
+# RUN mkdir -p $BUNDLE_PATH
+# RUN chmod 700 $BUNDLE_PATH
+
+RUN apt-get -y install sudo \
+&& apt-get clean \
+&& adduser --disabled-password --gecos "" $HOST_USER \
+&& usermod -aG sudo $HOST_USER \
+&& echo "$HOST_USER  ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+
+USER $HOST_USER
+
+RUN mkdir -p /home/$HOST_USER/.ssh \
+&& echo "export PATH=$GEM_HOME/bin:$BUNDLE_PATH/gems/bin:$PATH" >> /home/$HOST_USER/.bashrc \
+&& echo "export USER=$HOST_USER" >> /home/$HOST_USER/.bashrc \
+&& echo 'eval $(ssh-agent)' >> /home/$HOST_USER/.bashrc \
+&& echo "if [ -f $SSH_PRIVATE_KEY ]; then ssh-add $SSH_PRIVATE_KEY; fi" >> /home/$HOST_USER/.bashrc
 
 ENV LANG en_US.UTF-8 
 ENV	LANGUAGE en_US:en 
@@ -117,3 +124,4 @@ EXPOSE 3000
 #ENTRYPOINT ["/bin/bash", "-l", "-c"]
 #ENTRYPOINT ["bundle", "exec"]
 #CMD ["rails", "server", "-b", "0.0.0.0"]
+#CMD ["-c", "su", "$HOST_USER"]
