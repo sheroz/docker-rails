@@ -87,7 +87,7 @@ Cannot start service app: driver failed programming external connectivity on end
 
 # Quick reference of docker commands:
 ## run <command> inside the 'app' service container
-\> docker-compose run --rm app <command>
+\> docker-compose run --rm app \<command\>
 ---
 \> docker-compose run --rm app mc
 
