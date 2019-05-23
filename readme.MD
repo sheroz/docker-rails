@@ -90,7 +90,7 @@ https://www.jetbrains.com/help/ruby/settings-docker-tools.html
 Cannot start service app: driver failed programming external connectivity on endpoint (...)  Error starting userland proxy: (...)
 
 # Quick reference of docker commands:
-## run <command> inside the 'app' service container
+## run <command> inside the 'app' service
 \> docker-compose run --rm app \<command\>
 
 \> docker-compose run --rm app mc
@@ -98,13 +98,13 @@ Cannot start service app: driver failed programming external connectivity on end
 \> docker-compose run --rm app irb
 
 \> docker-compose run --rm app bundle install
-## run container app and open a bash console
+## Open a bash console inside the 'app' container
+\> docker run -it app bash
+
 \> docker run -it app mc
  
-\> docker run -it app bash
- 
 \> docker run -it app irb 
-## show docker stats (analog of linux's top)
+## Show docker stats (analog of linux's top)
 \> docker stats
 ## List containers
 \> docker-compose ps
@@ -114,7 +114,7 @@ Cannot start service app: driver failed programming external connectivity on end
 \> docker-compose ps --services
 ## Delete all containers
 \> docker rm $(docker ps -a -q)
-## show all images
+## Show all images
 \> docker image ls -a
 ## Delete all images
 \> docker rmi -f $(docker images -q)
@@ -126,11 +126,11 @@ Cannot start service app: driver failed programming external connectivity on end
 \> docker-compose down
 ## Stop services and remove ALL related containers, networks, images, and volumes 
 \> docker-compose down --rmi all -v --remove-orphans
-## list docker volumes
+## List docker volumes
 \> docker volume ls
-## remove all unused volumes
+## Remove all unused volumes
 \> docker volume prune -f
-## clean up everything - remove all images, containers, and networks
+## Clean up everything - remove all images, containers, and networks
 \> docker system prune --volumes -af
 ## Inspect running container
 \> docker inspect \<container ID\>
