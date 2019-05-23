@@ -11,6 +11,8 @@ About network settings for the database and redis services: The app service need
 I normally start rails in bash console and that allows to control messages and debug using **binding.pry**.
 When needed, I use another separate bash console to start **sidekiq**.
 Also, the app image has bunch of tools, including the **mc** (Midnight Commander)
+The **app** container starts in user mode.
+The **sudo** command is availabe without password prompt.
 
 The development and overall rails performance is acceptable. I can say that the difference not a big, compared to the development on  MacBook Pro 15 2018 what I normally use for Rails development at the office. The hardware components of the hosts (CPU, SSD, RAM) are approximately the same. 
 
