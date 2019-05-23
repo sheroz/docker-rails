@@ -18,18 +18,18 @@ The development and overall rails performance is acceptable. I can say that the 
 
 ## 1. Set build parameters in the .env file
 ## 2. Build containers
-> docker-compose build
+\> docker-compose build
 ## run containers in the background and leave them running
-> docker-compose up -d
+\> docker-compose up -d
 ## 3. Install bower (needs a root access)
-> docker exec -u 0 app bash
+\> docker exec -u 0 app bash
 
 $ npm install bower -g
 
 $ exit
 
 ## 4. Open a bash console in the running app container (as a default user)
-> docker exec -it app bash
+\> docker exec -it app bash
 ## 5. Prepare directories
 $ mkdir -p $BUNDLE_PATH
 $ chmod 700 $BUNDLE_PATH
@@ -47,7 +47,7 @@ $ rails s -b 0.0.0.0
 ## 11. Open browser at http://localhost:3000
 
 ## Opening a bash console in the running app container as a root
-> docker-compose exec -u 0 app bash
+\> docker-compose exec -u 0 app bash
 
 ## Starting RSpec tests
 $ bundle exec rspec
@@ -106,55 +106,55 @@ Cannot start service app: driver failed programming external connectivity on end
 
 # Quick reference of docker commands:
 ## run <command> inside the 'app' service container
-> docker-compose run --rm app <command>
+\> docker-compose run --rm app <command>
 ---
-> docker-compose run --rm app mc
+\> docker-compose run --rm app mc
 
-> docker-compose run --rm app irb
+\> docker-compose run --rm app irb
 
-> docker-compose run --rm app bundle install
+\> docker-compose run --rm app bundle install
 ---
 ## run container app and open a bash console
 --- 
-> docker run -it app mc
+\> docker run -it app mc
  
-> docker run -it app bash
+\> docker run -it app bash
  
-> docker run -it app irb 
+\> docker run -it app irb 
 ---
 ## show docker stats (analog of linux's top)
-> docker stats
+\> docker stats
 
 ## List containers
-> docker-compose ps
+\> docker-compose ps
 ## List all containers
-> docker ps -a
+\> docker ps -a
 ## List services
-> docker-compose ps --services
+\> docker-compose ps --services
 ## Delete all containers
-> docker rm $(docker ps -a -q)
+\> docker rm $(docker ps -a -q)
 
 ## show all images
-> docker image ls -a
+\> docker image ls -a
 ## Delete all images
-> docker rmi -f $(docker images -q)
+\> docker rmi -f $(docker images -q)
 
 ## Run services
-> docker-compose up -d
+\> docker-compose up -d
 ## Stop services
-> docker-compose stop
+\> docker-compose stop
 ## Stop services and remove containers and networks
-> docker-compose down
+\> docker-compose down
 ## Stop services and remove ALL related containers, networks, images, and volumes 
-> docker-compose down --rmi all -v --remove-orphans
+\> docker-compose down --rmi all -v --remove-orphans
 
 ## list docker volumes
-> docker volume ls
+\> docker volume ls
 ## remove all unused volumes
-> docker volume prune -f
+\> docker volume prune -f
 
 ## clean up everything - remove all images, containers, and networks
-> docker system prune --volumes -af
+\> docker system prune --volumes -af
 
 ## Inspect running container
-> docker inspect <container ID>
+\> docker inspect <container ID>
