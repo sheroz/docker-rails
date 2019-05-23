@@ -82,7 +82,7 @@ $ usermod -aG sudo sheroz
 
 $ echo "sheroz  ALL=(ALL:ALL) ALL" >> /etc/sudoers
 
-## Source <-> App files synchronization
+## Source / App files synchronization
 ## File Watchers configuration for JetBrains IDEs:
 **File type:** Any
 
@@ -157,4 +157,4 @@ Cannot start service app: driver failed programming external connectivity on end
 \> docker system prune --volumes -af
 
 ## Inspect running container
-\> docker inspect <container ID>
+\> docker inspect \<container ID\>
