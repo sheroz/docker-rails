@@ -52,6 +52,7 @@ https://capistranorb.com/documentation/getting-started/authentication-and-author
 ### Make sure that you have correct id_rsa settings in .env file
 ### id_rsa file should have correct permissions
 \> docker-compose exec app bash
+
 $ chown sheroz:sheroz /opt/storage/keys/id_rsa
 
 $ chmod 600 /opt/storage/keys/id_rsa
