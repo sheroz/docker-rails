@@ -16,6 +16,7 @@ services:
                 RUBY_DOWNLOAD_URL: ${RUBY_DOWNLOAD_URL}
                 RUBY_DOWNLOAD_SHA256: ${RUBY_DOWNLOAD_SHA256}
                 HOST_USER: ${HOST_USER}
+                SSH_PRIVATE_KEY: ${SSH_PRIVATE_KEY}
 #        network_mode: "host"        
         networks:
             - app_network

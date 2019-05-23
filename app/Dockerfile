@@ -98,6 +98,10 @@ ENV	BUNDLE_APP_CONFIG=$BUNDLE_PATH
 ENV	BUNDLE_SILENCE_ROOT_WARNING=1 
 ENV PATH $GEM_HOME/bin:$BUNDLE_PATH/gems/bin:$PATH
 RUN echo "export PATH=$GEM_HOME/bin:$BUNDLE_PATH/gems/bin:$PATH" >> /home/$HOST_USER/.bashrc
+RUN mkdir -p /home/$HOST_USER/.ssh
+RUN echo 'eval $(ssh-agent)' >> /home/$HOST_USER/.bashrc
+ARG SSH_PRIVATE_KEY
+RUN echo "if [ -f $SSH_PRIVATE_KEY ]; then ssh-add $SSH_PRIVATE_KEY; fi" >> /home/$HOST_USER/.bashrc
 
 ENV LANG en_US.UTF-8 
 ENV	LANGUAGE en_US:en 
