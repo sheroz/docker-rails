@@ -89,24 +89,20 @@ Cannot start service app: driver failed programming external connectivity on end
 # Quick reference of docker commands:
 ## run <command> inside the 'app' service container
 \> docker-compose run --rm app \<command\>
----
+
 \> docker-compose run --rm app mc
 
 \> docker-compose run --rm app irb
 
 \> docker-compose run --rm app bundle install
----
 ## run container app and open a bash console
---- 
 \> docker run -it app mc
  
 \> docker run -it app bash
  
 \> docker run -it app irb 
----
 ## show docker stats (analog of linux's top)
 \> docker stats
-
 ## List containers
 \> docker-compose ps
 ## List all containers
@@ -115,12 +111,10 @@ Cannot start service app: driver failed programming external connectivity on end
 \> docker-compose ps --services
 ## Delete all containers
 \> docker rm $(docker ps -a -q)
-
 ## show all images
 \> docker image ls -a
 ## Delete all images
 \> docker rmi -f $(docker images -q)
-
 ## Run services
 \> docker-compose up -d
 ## Stop services
@@ -129,14 +123,11 @@ Cannot start service app: driver failed programming external connectivity on end
 \> docker-compose down
 ## Stop services and remove ALL related containers, networks, images, and volumes 
 \> docker-compose down --rmi all -v --remove-orphans
-
 ## list docker volumes
 \> docker volume ls
 ## remove all unused volumes
 \> docker volume prune -f
-
 ## clean up everything - remove all images, containers, and networks
 \> docker system prune --volumes -af
-
 ## Inspect running container
 \> docker inspect \<container ID\>
