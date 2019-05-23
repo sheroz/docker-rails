@@ -1,4 +1,5 @@
-# Docker environment for Ruby on Rails Development ( tested on Windows 10 )
+# Docker environment for Ruby on Rails Development
+# Tested on Windows 10 
 
 The full description may or may not come soon... :) 
 
