@@ -46,8 +46,13 @@ $ gem install bundler -v 1.17.0
 $ bundle install
 ## 8. Build assets
 $ rake bower:install['--allow-root']
-## 9. Restore your databases, run rake aws:restore_db or other manual database restore scripts   
-## 10. Start rails 
+
+## Restore databases through rake aws:restore_db or other manual database restore scripts   
+\> docker-compose exec app bash
+rake aws:restore_db
+
+## Start rails 
+\> docker-compose exec app bash
 $ rails s -b 0.0.0.0
 ## Open host's browser at http://localhost:3000
 
