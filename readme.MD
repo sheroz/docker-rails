@@ -26,7 +26,7 @@ The development and overall rails performance is acceptable. I can say that the 
 ## run containers in the background and leave them running
 \> docker-compose up -d
 ## 3. Install bower
-\> docker exec -it app bash
+\> docker-compose exec app bash
 
 $ sudo npm install bower -g
 ## 4. Prepare directories
@@ -49,7 +49,7 @@ $ rake bower:install['--allow-root']
 
 ## Restore databases through rake aws:restore_db or other manual database restore scripts   
 \> docker-compose exec app bash
-rake aws:restore_db
+$ rake aws:restore_db
 
 ## Start rails 
 \> docker-compose exec app bash
