@@ -1,22 +1,6 @@
 # Docker environment for Ruby on Rails Development (tested on Windows 10)
 
-The full description may or may not come soon... :) 
-
-I am using this environment for Ruby on Rails development on Windows.
-
-I use Ubunutu 18.0.4 (bionic) as a base image for the **app** (Ruby on Rails) container to make sure that it would work the same way in development as in production. To achieve better performance in synchronizing source files on the host with the in-container directory (I had to duplicate sources inside of the container, because directly accessing mounted host files is very slow and, unfortunately, the volume 'cached' option does not work yet for Windows based hosts), I use File Watchers plugin on RubyMine (finally, after having tried many other different options like unison, lsyncd, ...).
-
-About network settings for the database and redis services: The app service needed access to the databases and redis on the same network's localhost (127.0.0.1) and this required is achieved by using **network_mode: "service:[service name]"** option.
-
-The **app** container runs in user mode.
-
-I normally start rails in bash console and that allows to control messages and debug using **binding.pry**.
-When needed, I am running another separate bash console to start **sidekiq** service.
-The app image has bunch of tools, including the **mc** ([The Midnight Commander](http://midnight-commander.org), my favorite file manager).
-The **sudo** command is availabe without password prompt.
-I use **capistrano** inside **app** container as a deployment automation tool.
-
-The development and overall rails performance is acceptable. I can say that the difference not a big, compared to the development on  MacBook Pro 15 2018 what I normally use for Rails development at the office. The hardware components of the hosts (CPU, SSD, RAM) are approximately the same. 
+The breif description: [http://sheroz.com/pages/blog/docker-rails.html](http://sheroz.com/pages/blog/docker-rails.html)
 
 ## Docker engine version: 18.09.2 (Docker Desktop for Windows)
 
