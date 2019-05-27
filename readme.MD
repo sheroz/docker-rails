@@ -30,11 +30,14 @@ The development and overall rails performance is acceptable. I can say that the 
 
 $ sudo npm install bower -g
 ## 4. Prepare directories
-$ mkdir -p $BUNDLE_PATH
+$ sudo mkdir -p $BUNDLE_PATH
+
+$ sudo chown $HOST_USER:$HOST_USER $BUNDLE_PATH
 
 $ chmod 700 $BUNDLE_PATH
 
-$ mkdir -p /opt/src
+$ sudo chmod 777 /opt/app
+
 ## 5. Initial copy of source files into app directory
 $ cp -R /opt/src/. /opt/app
 ## 6. Install bundler
@@ -43,9 +46,10 @@ $ gem install bundler -v 1.17.0
 $ bundle install
 ## 8. Build assets
 $ rake bower:install['--allow-root']
-## 9. Start rails 
+## 9. Restore your databases, run rake aws:restore_db or other manual database restore scripts   
+## 10. Start rails 
 $ rails s -b 0.0.0.0
-## 10. Open host's browser at http://localhost:3000
+## Open host's browser at http://localhost:3000
 
 ## Starting RSpec tests
 \> docker-compose exec app bash
@@ -54,12 +58,17 @@ $ bundle exec rspec
 ## Capistrano: Authentication & Authorisation configuratiom
 https://capistranorb.com/documentation/getting-started/authentication-and-authorisation/
 ### Make sure that you have correct id_rsa settings in .env file
-### id_rsa file should have correct permissions. Replace 'sheroz' with your username 
+### Copy your id_rsa key file to the SSH_PRIVATE_KEY location
+### Give to the id_rsa file required user ownership and permissions
+### Exit and re-enter to the app container 
 \> docker-compose exec app bash
 
-$ chown sheroz:sheroz /opt/storage/keys/id_rsa
+$ sudo chown $HOST_USER:$HOST_USER $SSH_PRIVATE_KEY
 
-$ chmod 600 /opt/storage/keys/id_rsa
+$ chmod 600 $SSH_PRIVATE_KEY
+
+$ exit
+
 ### Capistrano: deploy
 \> docker-compose exec app bash
 
@@ -87,8 +96,8 @@ In the General section of your Docker settings, turn on the Expose daemon on tcp
 ## RubyMin IDE configuration
 https://www.jetbrains.com/help/ruby/settings-docker-tools.html
 
-## Solution to fix the error messages below is - restart Docker after each reboot :) 
-Cannot start service app: driver failed programming external connectivity on endpoint (...)  Error starting userland proxy: (...)
+## Solution to fix the error messages below - restart Docker after each reboot :) 
+ERROR: for app  Cannot start service app: driver failed programming external connectivity on endpoint (...)  Error starting userland proxy: (...)
 
 # Quick reference of docker commands:
 ## run <command> inside the 'app' service

@@ -8,16 +8,12 @@ services:
         container_name: app
         build:
             context: ./app
-#            network: host
             args:
-                APP_PATH: ${APP_PATH}
-                SOURCE_PATH: ${SOURCE_PATH}
+                HOST_USER: ${HOST_USER}
+                SSH_PRIVATE_KEY: ${SSH_PRIVATE_KEY}
                 BUNDLE_PATH: ${STORAGE_PATH}/bundle
                 RUBY_DOWNLOAD_URL: ${RUBY_DOWNLOAD_URL}
                 RUBY_DOWNLOAD_SHA256: ${RUBY_DOWNLOAD_SHA256}
-                HOST_USER: ${HOST_USER}
-                SSH_PRIVATE_KEY: ${SSH_PRIVATE_KEY}
-#        network_mode: "host"        
         networks:
             - app_network
         ports:
@@ -29,19 +25,11 @@ services:
         stdin_open: true
         tty: true 
         working_dir: ${APP_PATH}
-#       command: bash -l && su ${HOST_USER}
-#       working_dir: /app
-#       command: cp -a ${SOURCE_PATH}/. ${APP_PATH}/ & && bash -l
 
     postgres:
         build:
             context: ./postgres
         network_mode: "service:app"        
-#            network: host
-#        networks:
-#            - app_network
-#        ports:
-#            - "5432:5432"
         volumes:
             - postgres:/var/lib/postgresql/data
        
@@ -49,29 +37,14 @@ services:
         image: redis:4.0-alpine
         command: [redis-server]
         network_mode: "service:app"        
-#        networks:
-#            - app_network
-#        ports:
-#            - "6379:6379"
         volumes:
             - redis:/var/lib/redis/data
 
     mongo:
         image: mongo:4.1-bionic
         network_mode: "service:app"        
-#        networks:
-#            - app_network
-#        ports:
-#            - "27017:27017"
         volumes:
             - mongo:/data/db
-
-#    lsyncd:
-#        build: ./lsyncd
-#        command: -nodaemon -delay 0 -rsync ${SOURCE_PATH} ${APP_PATH}
-#        volumes:
-#            - ${PROJECT_SOURCE}:${SOURCE_PATH}
-#            - app_path:${APP_PATH}
 
 networks:
     app_network:

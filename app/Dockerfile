@@ -4,6 +4,12 @@
 FROM buildpack-deps:bionic
 LABEL maintainer="Sheroz Khaydarov http://sheroz.com"
 
+ARG HOST_USER
+ARG SSH_PRIVATE_KEY
+ARG BUNDLE_PATH
+ARG RUBY_DOWNLOAD_URL 
+ARG RUBY_DOWNLOAD_SHA256
+
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
 apt-utils \
 build-essential \
@@ -17,13 +23,17 @@ nodejs-dev \
 node-gyp \
 nodejs \
 npm \
-zip \
 mc \
+sudo \
+zip \
 && apt-get clean \
 && rm -rf /var/lib/apt/lists/*  
 
-# Set locale
-RUN locale-gen en_US.UTF-8
+# Set locale and sudo user 
+RUN locale-gen en_US.UTF-8 \
+&& adduser --disabled-password --gecos "" $HOST_USER \
+&& usermod -aG sudo $HOST_USER \
+&& echo "$HOST_USER  ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 # Install PostgreSQL client tools
 RUN touch /etc/apt/sources.list.d/pgdg.list \
@@ -31,14 +41,16 @@ RUN touch /etc/apt/sources.list.d/pgdg.list \
 && wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - \
 && apt-get update \
 && apt-get -y install postgresql-client-10 \
-&& apt-get clean
+&& apt-get clean \
+&& rm -rf /var/lib/apt/lists/*  
 
 # Install MongoDB client tools
 RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com --recv 2930ADAE8CAF5059EE73BB4B58712A2291FA4AD5 \
 && echo "deb http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.6 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-3.6.list \
 && apt-get update \
 && apt-get -y install mongodb-org-tools mongodb-org-shell \
-&& apt-get clean
+&& apt-get clean \
+&& rm -rf /var/lib/apt/lists/*  
 
 # Install Unison
 # RUN apt-get update \
@@ -66,8 +78,6 @@ RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com --recv 2930ADAE8CAF5059EE
 # && /bin/bash -l -c "rvm install 2.5.3"
 
 # Install Ruby from source
-ARG RUBY_DOWNLOAD_URL 
-ARG RUBY_DOWNLOAD_SHA256
 RUN mkdir -p /tmp/build/ruby \
 && cd /tmp/build \
 && wget -q --show-progress --progress=bar:force:noscroll -O ruby.tar.xz "$RUBY_DOWNLOAD_URL" \
@@ -83,24 +93,13 @@ RUN mkdir -p /tmp/build/ruby \
 && cd \
 && rm -rf /tmp/build
 
-ARG HOST_USER
-ARG BUNDLE_PATH
-ARG SSH_PRIVATE_KEY
-
 ENV BUNDLE_PATH=$BUNDLE_PATH 
 ENV GEM_HOME=$BUNDLE_PATH 
 ENV	BUNDLE_APP_CONFIG=$BUNDLE_PATH 
 ENV	BUNDLE_SILENCE_ROOT_WARNING=1 
 ENV PATH $GEM_HOME/bin:$BUNDLE_PATH/gems/bin:$PATH
-
-# RUN mkdir -p $BUNDLE_PATH
-# RUN chmod 700 $BUNDLE_PATH
-
-RUN apt-get -y install sudo \
-&& apt-get clean \
-&& adduser --disabled-password --gecos "" $HOST_USER \
-&& usermod -aG sudo $HOST_USER \
-&& echo "$HOST_USER  ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+ENV SSH_PRIVATE_KEY=$SSH_PRIVATE_KEY
+ENV HOST_USER=$HOST_USER
 
 USER $HOST_USER
 
@@ -114,14 +113,4 @@ ENV LANG en_US.UTF-8
 ENV	LANGUAGE en_US:en 
 ENV LC_ALL en_US.UTF-8
 
-# ARG APP_PATH
-# ARG SOURCE_PATH
-# RUN mkdir -p $APP_PATH && mkdir -p $SOURCE_PATH
-
 EXPOSE 3000
-
-#ENTRYPOINT ["/bin/bash", "-l"]
-#ENTRYPOINT ["/bin/bash", "-l", "-c"]
-#ENTRYPOINT ["bundle", "exec"]
-#CMD ["rails", "server", "-b", "0.0.0.0"]
-#CMD ["-c", "su", "$HOST_USER"]
