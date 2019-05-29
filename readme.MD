@@ -1,4 +1,4 @@
-# Docker environment for Ruby on Rails Development (tested on Windows 10)
+# Docker environment for Ruby on Rails Development on Windows (tested with Windows 10)
 
 The breif description: [http://sheroz.com/pages/blog/docker-rails.html](http://sheroz.com/pages/blog/docker-rails.html)
 
