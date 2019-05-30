@@ -37,11 +37,13 @@ $ rake aws:restore_db
 
 ## Start rails 
 \> docker-compose exec app bash
+
 $ rails s -b 0.0.0.0
 ## Open host's browser at http://localhost:3000
 
 ## Starting RSpec tests
 \> docker-compose exec app bash
+
 $ bundle exec rspec
 
 ## Capistrano: Authentication & Authorisation configuratiom
