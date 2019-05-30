@@ -33,6 +33,7 @@ $ rake bower:install['--allow-root']
 
 ## Restore databases through rake aws:restore_db or other manual database restore scripts   
 \> docker-compose exec app bash
+
 $ rake aws:restore_db
 
 ## Start rails 
