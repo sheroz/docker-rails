@@ -1,6 +1,6 @@
 # Ruby on Rails Development on Windows using Docker (tested with Windows 10)
 
-The breif description: [https://sheroz.com/pages/blog/ruby-rails-windows-docker.html](http://sheroz.com/pages/blog/ruby-rails-windows-docker.html)
+The brief description: [https://sheroz.com/pages/blog/ruby-rails-windows-docker.html](http://sheroz.com/pages/blog/ruby-rails-windows-docker.html)
 
 ## Docker engine version: 18.09.2 (Docker Desktop for Windows)
 
